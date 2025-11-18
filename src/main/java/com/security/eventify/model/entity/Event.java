@@ -23,7 +23,7 @@ public class Event {
     private LocalDateTime dateTime;
     private Integer capacity;
 
-    @OneToMany
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Registration> registrations;
 
     @ManyToOne
