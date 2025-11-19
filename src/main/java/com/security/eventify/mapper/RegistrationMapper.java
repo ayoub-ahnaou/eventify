@@ -2,8 +2,8 @@ package com.security.eventify.mapper;
 
 import org.mapstruct.Mapper;
 
-import com.security.eventify.dto.RegistrationRequestDTO;
-import com.security.eventify.dto.RegistrationResponseDTO;
+import com.security.eventify.dto.registration.RegistrationRequestDTO;
+import com.security.eventify.dto.registration.RegistrationResponseDTO;
 import com.security.eventify.model.entity.Registration;
 
 @Mapper(componentModel = "spring")
