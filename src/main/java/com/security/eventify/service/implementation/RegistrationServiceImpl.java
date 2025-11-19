@@ -5,15 +5,15 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.security.eventify.dto.registration.RegistrationRequestDTO;
-import com.security.eventify.dto.registration.RegistrationResponseDTO;
+import com.security.eventify.dto.registration.request.RegistrationRequestDTO;
+import com.security.eventify.dto.registration.response.RegistrationResponseDTO;
 import com.security.eventify.mapper.RegistrationMapper;
 import com.security.eventify.model.entity.Event;
 import com.security.eventify.model.entity.Registration;
 import com.security.eventify.model.entity.User;
 import com.security.eventify.repository.EventRepository;
 import com.security.eventify.repository.RegistrationRepository;
-import com.security.eventify.service.interfaces.RegistrationService;
+import com.security.eventify.service.RegistrationService;
 
 
 @Service
@@ -45,7 +45,7 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     // this is the method of get specifique registration by id
     public RegistrationResponseDTO getRegistrtion(Long id) {
-        return registrationMapper.registrationToDto(registrationRepository.findById(id).orElseThrow(()->new RuntimeException("there is no registration with the id")));
+        return registrationMapper.toDto(registrationRepository.findById(id).orElseThrow(()->new RuntimeException("there is no registration with the id")));
     }
 
     // this is the method of update registration
