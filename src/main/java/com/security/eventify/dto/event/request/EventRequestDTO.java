@@ -1,7 +1,6 @@
-package com.security.eventify.dto.event;
+package com.security.eventify.dto.event.request;
 
-import java.time.LocalDateTime;
-
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,9 +8,13 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EventResponseDTO {
+public class EventRequestDTO {
+    @NotBlank
     private String title;
+
+    @NotBlank
     private String location;
-    private LocalDateTime dateTime;
+
+    @NotBlank
     private Integer capacity;
 }

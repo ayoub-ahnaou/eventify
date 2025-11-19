@@ -1,9 +1,9 @@
-package com.security.eventify.service.interfaces;
+package com.security.eventify.service;
 
 import java.util.List;
 
-import com.security.eventify.dto.registration.RegistrationRequestDTO;
-import com.security.eventify.dto.registration.RegistrationResponseDTO;
+import com.security.eventify.dto.registration.request.RegistrationRequestDTO;
+import com.security.eventify.dto.registration.response.RegistrationResponseDTO;
 
 public interface RegistrationService {
     

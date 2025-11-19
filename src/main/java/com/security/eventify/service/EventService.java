@@ -1,9 +1,9 @@
-package com.security.eventify.service.interfaces;
+package com.security.eventify.service;
 
 import java.util.List;
 
-import com.security.eventify.dto.event.EventRequestDTO;
-import com.security.eventify.dto.event.EventResponseDTO;
+import com.security.eventify.dto.event.request.EventRequestDTO;
+import com.security.eventify.dto.event.response.EventResponseDTO;
 
 
 public interface EventService {

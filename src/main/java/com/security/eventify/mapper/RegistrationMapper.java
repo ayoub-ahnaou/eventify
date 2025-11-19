@@ -2,12 +2,12 @@ package com.security.eventify.mapper;
 
 import org.mapstruct.Mapper;
 
-import com.security.eventify.dto.registration.RegistrationRequestDTO;
-import com.security.eventify.dto.registration.RegistrationResponseDTO;
+import com.security.eventify.dto.registration.request.RegistrationRequestDTO;
+import com.security.eventify.dto.registration.response.RegistrationResponseDTO;
 import com.security.eventify.model.entity.Registration;
 
 @Mapper(componentModel = "spring")
 public interface RegistrationMapper {
-    Registration dtoToRegistration(RegistrationRequestDTO registrationRequestDTO);
-    RegistrationResponseDTO registrationToDto(Registration registration);
+    Registration toEntity(RegistrationRequestDTO registrationRequestDTO);
+    RegistrationResponseDTO toDto(Registration registration);
 }
