@@ -3,8 +3,9 @@ package com.security.eventify.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.security.eventify.dto.registration.response.RegistrationResponseDTO;
+import com.security.eventify.service.RegistrationService;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -13,12 +14,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequestMapping("/api/user/events")
 public class RegistrationController {
     
-    RegistrationController() {
 
+    private final RegistrationService registrationService;
+    RegistrationController(RegistrationService registrationService) {
+        this.registrationService = registrationService;
     }
 
     @PostMapping("/{id}/register")
-    public void register(@PathVariable Long id) {
+    public ResponseEntity<String> createRegistration(@PathVariable("id") Long eventId) {
+        registrationService.createRegistration(eventId);
+        return ResponseEntity.ok().body("registration created succefullt");
     }
     
 }
