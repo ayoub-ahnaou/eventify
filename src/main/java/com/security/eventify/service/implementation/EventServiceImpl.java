@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import com.security.eventify.dto.event.request.EventRequestDTO;
 import com.security.eventify.dto.event.response.EventResponseDTO;
+import com.security.eventify.healper.AuthenticatedUser;
 import com.security.eventify.mapper.EventMapper;
 import com.security.eventify.model.entity.Event;
 import com.security.eventify.model.entity.User;
@@ -19,11 +20,13 @@ public class EventServiceImpl implements EventService {
     EventRepository eventRepository;
     UserRepository userRepository;
     EventMapper eventMapper;
+    AuthenticatedUser authenticatedUser;
     
-    public EventServiceImpl(EventRepository eventRepository , EventMapper eventMapper,UserRepository UserRepository, UserRepository userRepository){
+    public EventServiceImpl(EventRepository eventRepository , EventMapper eventMapper,UserRepository UserRepository, UserRepository userRepository, AuthenticatedUser authenticatedUser){
         this.eventRepository = eventRepository;
         this.eventMapper = eventMapper;
         this.userRepository = userRepository;
+        this.authenticatedUser = authenticatedUser;
     }
 
 
@@ -33,7 +36,7 @@ public class EventServiceImpl implements EventService {
         Event event = eventMapper.toEntity(eventDto);
         LocalDateTime dateTime = LocalDateTime.now();
         event.setDateTime(dateTime);
-        User user = userRepository.findById(1L).orElse(null) ;// we gonna just use this until we do the login and get the orginazer from the authontication
+        User user = authenticatedUser.get();
         event.setOrganizer(user);
         EventResponseDTO response = eventMapper.toDto(eventRepository.save(event));
         return response;
