@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
@@ -13,7 +14,7 @@ public class ApiResponseError extends ApiResponse {
     private List<String> errors;
 
     public ApiResponseError(Integer status, String message, List<String> errors) {
-        super(status, message);
+        super(status, message, LocalDateTime.now());
         this.errors = errors;
     }
 }
