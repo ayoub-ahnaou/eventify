@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
         // check for duplicate
         if (this.userRepository.existsByEmail(dto.getEmail()))
             throw new EmailAlreadyUsedException("Email Already Exists");
-
+        
         User user = userMapper.toEntity(dto);
         user.setPassword(passwordEncoder.encode(dto.getPassword())); // hash password
         user.setRole(Role.ROLE_USER); // set default role: user

@@ -3,9 +3,11 @@ package com.security.eventify.service.implementation;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.security.eventify.dto.registration.response.RegistrationResponseDTO;
+import com.security.eventify.healper.AuthenticatedUser;
 import com.security.eventify.mapper.RegistrationMapper;
 import com.security.eventify.model.entity.Event;
 import com.security.eventify.model.entity.Registration;
@@ -23,12 +25,15 @@ public class RegistrationServiceImpl implements RegistrationService {
     RegistrationMapper registrationMapper;
     EventRepository eventRepository;
     UserRepository userRepository;
+    @Autowired
+    AuthenticatedUser authenticatedUser;
 
-    RegistrationServiceImpl(RegistrationRepository registrationRepository, RegistrationMapper registrationMapper, EventRepository eventRepository, UserRepository userRepository) {
+    RegistrationServiceImpl(RegistrationRepository registrationRepository, RegistrationMapper registrationMapper, EventRepository eventRepository, UserRepository userRepository, AuthenticatedUser authenticatedUser ) {
         this.registrationRepository = registrationRepository;
         this.registrationMapper = registrationMapper;
         this.eventRepository = eventRepository;
         this.userRepository = userRepository;
+        this.authenticatedUser = authenticatedUser;
     }
     
 
@@ -36,7 +41,7 @@ public class RegistrationServiceImpl implements RegistrationService {
     // this is the method of create registration
     @Override
     public void createRegistration(Long eventId) {
-        User user = userRepository.findById(1L).orElse(null);
+        User user = authenticatedUser.get();
         Event event = eventRepository.findById(eventId).orElseThrow(()-> new RuntimeException("there is no registration with this id"));
         Registration registration = new Registration();
         registration.setEvent(event);

@@ -1,6 +1,7 @@
 package com.security.eventify.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,7 +16,8 @@ import com.security.eventify.dto.event.response.EventResponseDTO;
 import com.security.eventify.service.EventService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/organizer/events")
+@PreAuthorize("hasRole('Organizer')")
 public  class EventController{  
 
 
@@ -26,22 +28,22 @@ public  class EventController{
     }
 
 
-    @PostMapping("/organizer/events")
+    @PostMapping
     public EventResponseDTO creatEvent(@RequestBody EventRequestDTO eventRequestDTO) {
         return eventService.createEvent(eventRequestDTO);
     }
 
-    @GetMapping("/organizer/events/{id}")
+    @GetMapping("/{id}")
     public EventResponseDTO getEvent(@PathVariable("id") Long id) {
         return eventService.getEvent(id);
     }
 
-    @PutMapping("/organizer/events/{id}")
+    @PutMapping("/{id}")
     public EventResponseDTO updateEvent(@PathVariable("id") Long id , @RequestBody EventRequestDTO eventRequestDTO) {
         return eventService.updateEvent(id, eventRequestDTO);
     }
 
-    @DeleteMapping("/organizer/events/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteEvent(@PathVariable("id") Long id) {
         eventService.deleteEvent(id);
         return ResponseEntity.ok().body("event deleted successfully");
