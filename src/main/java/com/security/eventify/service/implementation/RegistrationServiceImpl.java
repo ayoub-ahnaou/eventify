@@ -14,7 +14,6 @@ import com.security.eventify.model.entity.Registration;
 import com.security.eventify.model.entity.User;
 import com.security.eventify.repository.EventRepository;
 import com.security.eventify.repository.RegistrationRepository;
-import com.security.eventify.repository.UserRepository;
 import com.security.eventify.service.RegistrationService;
 
 
@@ -24,15 +23,12 @@ public class RegistrationServiceImpl implements RegistrationService {
     RegistrationRepository registrationRepository;
     RegistrationMapper registrationMapper;
     EventRepository eventRepository;
-    UserRepository userRepository;
-    @Autowired
     AuthenticatedUser authenticatedUser;
 
-    RegistrationServiceImpl(RegistrationRepository registrationRepository, RegistrationMapper registrationMapper, EventRepository eventRepository, UserRepository userRepository, AuthenticatedUser authenticatedUser ) {
+    RegistrationServiceImpl(RegistrationRepository registrationRepository, RegistrationMapper registrationMapper, EventRepository eventRepository, AuthenticatedUser authenticatedUser ) {
         this.registrationRepository = registrationRepository;
         this.registrationMapper = registrationMapper;
         this.eventRepository = eventRepository;
-        this.userRepository = userRepository;
         this.authenticatedUser = authenticatedUser;
     }
     
