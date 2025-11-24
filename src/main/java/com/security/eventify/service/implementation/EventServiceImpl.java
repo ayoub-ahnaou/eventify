@@ -18,14 +18,12 @@ public class EventServiceImpl implements EventService {
 
 
     EventRepository eventRepository;
-    UserRepository userRepository;
     EventMapper eventMapper;
     AuthenticatedUser authenticatedUser;
     
-    public EventServiceImpl(EventRepository eventRepository , EventMapper eventMapper,UserRepository UserRepository, UserRepository userRepository, AuthenticatedUser authenticatedUser){
+    public EventServiceImpl(EventRepository eventRepository , EventMapper eventMapper, AuthenticatedUser authenticatedUser){
         this.eventRepository = eventRepository;
         this.eventMapper = eventMapper;
-        this.userRepository = userRepository;
         this.authenticatedUser = authenticatedUser;
     }
 
