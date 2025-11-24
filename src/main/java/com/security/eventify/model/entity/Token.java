@@ -20,7 +20,9 @@ public class Token {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column(unique = true
+        // ,name = "token_value"
+        )
     private String value;
     private LocalDateTime expiresAt;
 
