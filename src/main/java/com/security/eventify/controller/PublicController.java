@@ -1,7 +1,6 @@
 package com.security.eventify.controller;
 
 import com.security.eventify.advice.exeption.InvalidCredentialsException;
-import com.security.eventify.advice.exeption.ResourceNotFoundException;
 import com.security.eventify.dto.ApiResponse;
 import com.security.eventify.dto.ApiResponseSuccess;
 import com.security.eventify.dto.event.response.EventResponseDTO;
