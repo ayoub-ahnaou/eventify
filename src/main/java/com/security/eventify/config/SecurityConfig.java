@@ -1,7 +1,6 @@
 package com.security.eventify.config;
 
 import com.security.eventify.service.TokenService;
-import com.security.eventify.service.implementation.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 @RequiredArgsConstructor
@@ -29,24 +29,29 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         TokenAuthenticationFilter tokenFilter = new TokenAuthenticationFilter(tokenService, (com.security.eventify.service.implementation.CustomUserDetailsService) userDetailsService);
+        boolean useTokenAuth = true;
 
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(ex -> ex
-                        .authenticationEntryPoint(authenticationEntryPoint)   // 401
-                        .accessDeniedHandler(accessDeniedHandler)             // 403
+                                .authenticationEntryPoint(authenticationEntryPoint)   // 401
+                                .accessDeniedHandler(accessDeniedHandler)             // 403
                 )
                 .authenticationProvider(customAuthenticationProvider)
-                .addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/public/**").permitAll()
-                        .requestMatchers("/api/user/**").hasAnyRole("USER", "ORGANIZER", "ADMIN")
-                        .requestMatchers("/api/organizer/**").hasRole("ORGANIZER")
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        .anyRequest().authenticated()
+                    .requestMatchers("/api/public/**").permitAll()
+                    .requestMatchers("/api/user/**").hasAnyRole("USER", "ORGANIZER", "ADMIN")
+                    .requestMatchers("/api/organizer/**").hasRole("ORGANIZER")
+                    .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                    .anyRequest().authenticated()
                 );
-
+                
+        if (useTokenAuth) {
+        http.addFilterBefore(tokenFilter, UsernamePasswordAuthenticationFilter.class);
+        } else {
+            http.httpBasic(withDefaults());
+        }
         return http.build();
     }
 
